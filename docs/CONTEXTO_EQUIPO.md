@@ -108,11 +108,11 @@ Formato de una lectura (**no se cambia sin avisar a los tres**):
 
 | Persona | Área | Entrega principal |
 |---|---|---|
-| **P1 — Datos** | Simulador, ingesta, tablas, datos semilla, histórico (Athena), API de consultas | Las lecturas llegan y se pueden consultar |
-| **P2 — Orquestación** | Detector, Step Functions (incidente y planificación), SNS, Secrets Manager | Un incidente recorre todo el flujo |
-| **P3 — IA + Web (Denilson)** | Google Cloud (Gemini, Firestore, Hosting), réplica, frontend | La IA explica, la web lo muestra, la réplica funciona |
+| **Denilson** | Todo AWS: ingesta, Step Functions, API, réplica, despliegue de la demo | Un incidente recorre todo el flujo en AWS |
+| **Matías** | Google Cloud (Gemini, Firestore) y la web (React en Firebase Hosting) | La IA explica, la web lo muestra, el modo degradado funciona |
+| **Enrique** | Datos semilla, simulador con escenarios, guion y video, README y entrega | La demo cuenta una historia y la entrega cumple las reglas |
 
-Diagrama y video: **los tres**, el domingo por la tarde.
+Las tareas detalladas de cada uno están en `docs/tareas/`. El acuerdo entre las partes está en `contracts/interfaces.md`.
 
 ## 9. Reglas del repo
 
