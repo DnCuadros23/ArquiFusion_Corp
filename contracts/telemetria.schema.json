@@ -4,24 +4,116 @@
   "title": "Lectura de telemetría de una máquina",
   "description": "Mensaje que envía cada máquina (o el simulador) a POST /telemetria. Campos de sensores opcionales: si un sensor no reporta, se omite (no se manda 0).",
   "type": "object",
-  "required": ["tenant_id", "maquina_id", "modelo", "ts", "zona", "lat", "lon", "estado", "horas_motor"],
+  "required": [
+    "tenant_id",
+    "maquina_id",
+    "modelo",
+    "ts",
+    "zona",
+    "lat",
+    "lon",
+    "estado",
+    "horas_motor"
+  ],
   "additionalProperties": false,
   "properties": {
-    "tenant_id":       { "type": "string", "description": "Operación/cliente. Ej: MINA_SUR" },
-    "maquina_id":      { "type": "string", "pattern": "^[A-Z]{3}-[0-9]{3}$", "description": "Ej: EXC-007" },
-    "modelo":          { "type": "string", "description": "Ej: EXC-320. Solo se comparan máquinas del mismo modelo" },
-    "ts":              { "type": "string", "format": "date-time", "description": "ISO 8601 en UTC" },
-    "zona":            { "type": "string", "description": "Zona de trabajo. Ej: TAJO_NORTE" },
-    "lat":             { "type": "number", "minimum": -90,  "maximum": 90 },
-    "lon":             { "type": "number", "minimum": -180, "maximum": 180 },
-    "estado":          { "type": "string", "enum": ["OPERANDO", "RALENTI", "DETENIDA", "MANTENIMIENTO"] },
-    "horas_motor":     { "type": "number", "minimum": 0, "description": "Horas acumuladas de operación" },
-    "temp_motor_c":    { "type": "number", "description": "°C" },
-    "vibracion_mm_s":  { "type": "number", "minimum": 0, "description": "Vibración RMS en mm/s" },
-    "presion_hid_bar": { "type": "number", "minimum": 0, "description": "Presión hidráulica en bar" },
-    "combustible_l_h": { "type": "number", "minimum": 0, "description": "Consumo en litros/hora" },
-    "carga_t":         { "type": "number", "minimum": 0, "description": "Carga transportada en toneladas" },
-    "velocidad_kmh":   { "type": "number", "minimum": 0 },
-    "rpm":             { "type": "number", "minimum": 0 }
-  }
+    "tenant_id": {
+      "type": "string",
+      "description": "Operación/cliente. Ej: MINA_SUR"
+    },
+    "maquina_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}-[0-9]{3}$",
+      "description": "Ej: EXC-007"
+    },
+    "modelo": {
+      "type": "string",
+      "description": "Ej: EXC-320. Solo se comparan máquinas del mismo modelo"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 en UTC"
+    },
+    "zona": {
+      "type": "string",
+      "description": "Zona de trabajo. Ej: TAJO_NORTE"
+    },
+    "lat": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "lon": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "OPERANDO",
+        "RALENTI",
+        "DETENIDA",
+        "MANTENIMIENTO"
+      ]
+    },
+    "horas_motor": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Horas acumuladas de operación"
+    },
+    "temp_motor_c": {
+      "type": "number",
+      "description": "°C"
+    },
+    "vibracion_mm_s": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Vibración RMS en mm/s"
+    },
+    "presion_hid_bar": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Presión hidráulica en bar"
+    },
+    "combustible_l_h": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Consumo en litros/hora"
+    },
+    "carga_t": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Carga transportada en toneladas"
+    },
+    "velocidad_kmh": {
+      "type": "number",
+      "minimum": 0
+    },
+    "rpm": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "examples": [
+    {
+      "tenant_id": "MINA_SUR",
+      "maquina_id": "EXC-007",
+      "modelo": "EXC-320",
+      "ts": "2026-11-14T15:00:00Z",
+      "zona": "TAJO_NORTE",
+      "lat": -15.84,
+      "lon": -70.02,
+      "estado": "OPERANDO",
+      "horas_motor": 4521.5,
+      "temp_motor_c": 92.1,
+      "vibracion_mm_s": 4.2,
+      "presion_hid_bar": 310,
+      "combustible_l_h": 38.5,
+      "carga_t": 28.0,
+      "velocidad_kmh": 6.1,
+      "rpm": 1850
+    }
+  ]
 }

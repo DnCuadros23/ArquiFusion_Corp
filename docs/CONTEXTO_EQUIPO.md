@@ -124,7 +124,31 @@ Diagrama y video: **los tres**, el domingo por la tarde.
 - Al terminar de probar: **apagar el simulador** (EventBridge) para no gastar créditos.
 - Las sesiones de Learner Lab duran 4 h: todo debe poder redeployarse con `serverless deploy`.
 
-## 10. Glosario mínimo
+### Cuentas de AWS (importante)
+Cada uno tiene **su propio Learner Lab** (cuentas distintas):
+- Cada uno prueba su servicio en **su** cuenta con `--stage dev`.
+- La **cuenta de demo** es la de una sola persona: ahí se despliega todo con `--stage prod` para el video.
+- Convenciones: Python 3.12, región `us-east-1`, recursos `${sls:stage}-<nombre>`, PK `tenant_id`, logs en JSON de una línea.
+
+## 10. Configurar Google Cloud (lo hace una persona)
+
+1. https://cloud.google.com/free → "Comenzar gratis" → registrar tarjeta (cargo de verificación que se devuelve). Confirmar los créditos en *Facturación*.
+2. En Cloud Shell:
+   ```bash
+   gcloud projects create arquifusion-fleet-<sufijo>
+   gcloud config set project arquifusion-fleet-<sufijo>
+   gcloud billing projects link arquifusion-fleet-<sufijo> --billing-account=<ID>   # ID: gcloud billing accounts list
+   gcloud services enable run.googleapis.com cloudfunctions.googleapis.com cloudbuild.googleapis.com \
+     artifactregistry.googleapis.com aiplatform.googleapis.com firestore.googleapis.com secretmanager.googleapis.com
+   gcloud firestore databases create --location=us-central1
+   ```
+3. *Facturación → Presupuestos*: alerta de USD 10.
+4. *IAM → Otorgar acceso*: los otros dos como **Editor**.
+5. *Vertex AI Studio*: probar Gemini Flash con un "hola".
+
+**Plan B (si nadie activa la prueba):** la IA se llama desde una Lambda con una key gratuita de Google AI Studio; Firestore y Firebase Hosting siguen gratis. El código de IA es el mismo.
+
+## 11. Glosario mínimo
 
 - **Anomalía:** valor que se aleja de lo normal de esa máquina. No es una falla confirmada.
 - **Incidente:** algo que requiere atención y queda registrado.

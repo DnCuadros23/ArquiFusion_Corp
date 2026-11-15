@@ -4,36 +4,92 @@
   "title": "Incidente",
   "description": "Lo crea el detector al disparar la Step Function de incidente; cada paso del flujo lo va completando. Se guarda en t_incidentes y se replica a Firestore.",
   "type": "object",
-  "required": ["tenant_id", "incidente_id", "maquina_id", "modelo", "zona", "creado_ts", "estado", "severidad", "variables_anomalas"],
+  "required": [
+    "tenant_id",
+    "incidente_id",
+    "maquina_id",
+    "modelo",
+    "zona",
+    "creado_ts",
+    "estado",
+    "severidad",
+    "variables_anomalas"
+  ],
   "properties": {
-    "tenant_id":    { "type": "string" },
-    "incidente_id": { "type": "string", "description": "uuid4" },
-    "maquina_id":   { "type": "string" },
-    "modelo":       { "type": "string" },
-    "zona":         { "type": "string" },
-    "lat":          { "type": "number" },
-    "lon":          { "type": "number" },
-    "creado_ts":    { "type": "string", "format": "date-time" },
+    "tenant_id": {
+      "type": "string"
+    },
+    "incidente_id": {
+      "type": "string",
+      "description": "uuid4"
+    },
+    "maquina_id": {
+      "type": "string"
+    },
+    "modelo": {
+      "type": "string"
+    },
+    "zona": {
+      "type": "string"
+    },
+    "lat": {
+      "type": "number"
+    },
+    "lon": {
+      "type": "number"
+    },
+    "creado_ts": {
+      "type": "string",
+      "format": "date-time"
+    },
     "estado": {
       "type": "string",
-      "enum": ["DETECTADO", "ANALIZADO", "ASIGNADO", "EN_ATENCION", "CERRADO", "DESCARTADO"]
+      "enum": [
+        "DETECTADO",
+        "ANALIZADO",
+        "ASIGNADO",
+        "EN_ATENCION",
+        "CERRADO",
+        "DESCARTADO"
+      ]
     },
     "severidad": {
       "type": "string",
-      "enum": ["OBSERVACION", "MEDIA", "CRITICA"],
+      "enum": [
+        "OBSERVACION",
+        "MEDIA",
+        "CRITICA"
+      ],
       "description": "OBSERVACION: 1 variable desviada. MEDIA: 2+ persistentes. CRITICA: 3+ o fuera de rango físico"
     },
     "variables_anomalas": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["variable", "valor", "media_habitual", "z"],
+        "required": [
+          "variable",
+          "valor",
+          "media_habitual",
+          "z"
+        ],
         "properties": {
-          "variable":       { "type": "string", "description": "Nombre del campo de telemetría. Ej: temp_motor_c" },
-          "valor":          { "type": "number" },
-          "media_habitual": { "type": "number" },
-          "z":              { "type": "number", "description": "Desviaciones estándar respecto a su historial" },
-          "minutos_persistente": { "type": "number" }
+          "variable": {
+            "type": "string",
+            "description": "Nombre del campo de telemetría. Ej: temp_motor_c"
+          },
+          "valor": {
+            "type": "number"
+          },
+          "media_habitual": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number",
+            "description": "Desviaciones estándar respecto a su historial"
+          },
+          "minutos_persistente": {
+            "type": "number"
+          }
         }
       }
     },
@@ -41,31 +97,89 @@
       "type": "object",
       "description": "Respuesta de Gemini. Nunca es un diagnóstico confirmado.",
       "properties": {
-        "nivel_riesgo":   { "type": "string", "enum": ["BAJO", "MEDIO", "ALTO"] },
-        "resumen":        { "type": "string" },
-        "posibles_causas_a_revisar": { "type": "array", "items": { "type": "string" } },
-        "especialidad_sugerida": { "type": "string", "enum": ["MOTOR", "HIDRAULICO", "ELECTRICO", "TREN_RODAJE", "GENERAL"] },
+        "nivel_riesgo": {
+          "type": "string",
+          "enum": [
+            "BAJO",
+            "MEDIO",
+            "ALTO"
+          ]
+        },
+        "resumen": {
+          "type": "string"
+        },
+        "posibles_causas_a_revisar": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "especialidad_sugerida": {
+          "type": "string",
+          "enum": [
+            "MOTOR",
+            "HIDRAULICO",
+            "ELECTRICO",
+            "TREN_RODAJE",
+            "GENERAL"
+          ]
+        },
         "mensajes_por_rol": {
           "type": "object",
           "properties": {
-            "tecnico":    { "type": "string" },
-            "supervisor": { "type": "string" },
-            "gerente":    { "type": "string" }
+            "tecnico": {
+              "type": "string"
+            },
+            "supervisor": {
+              "type": "string"
+            },
+            "gerente": {
+              "type": "string"
+            }
           }
         },
-        "es_diagnostico": { "const": false },
-        "fuente":         { "type": "string", "enum": ["GEMINI", "PLANTILLA"], "description": "PLANTILLA si la IA no respondió" }
+        "es_diagnostico": {
+          "const": false
+        },
+        "fuente": {
+          "type": "string",
+          "enum": [
+            "GEMINI",
+            "PLANTILLA"
+          ],
+          "description": "PLANTILLA si la IA no respondió"
+        }
       }
     },
-    "grupo_causa_comun": { "type": ["string", "null"], "description": "Id del grupo si hay 3+ incidentes en la misma zona en 60 min" },
+    "grupo_causa_comun": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Id del grupo si hay 3+ incidentes en la misma zona en 60 min"
+    },
     "tecnico_asignado": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
-        "tecnico_id":   { "type": "string" },
-        "nombre":       { "type": "string" },
-        "especialidad": { "type": "string" },
-        "eta_min":      { "type": "number" },
-        "razon":        { "type": "string", "description": "Por qué se eligió (trazabilidad)" }
+        "tecnico_id": {
+          "type": "string"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "especialidad": {
+          "type": "string"
+        },
+        "eta_min": {
+          "type": "number"
+        },
+        "razon": {
+          "type": "string",
+          "description": "Por qué se eligió (trazabilidad)"
+        }
       }
     },
     "repuestos": {
@@ -73,10 +187,18 @@
       "items": {
         "type": "object",
         "properties": {
-          "repuesto_id": { "type": "string" },
-          "almacen":     { "type": "string" },
-          "cantidad":    { "type": "integer" },
-          "disponible":  { "type": "boolean" }
+          "repuesto_id": {
+            "type": "string"
+          },
+          "almacen": {
+            "type": "string"
+          },
+          "cantidad": {
+            "type": "integer"
+          },
+          "disponible": {
+            "type": "boolean"
+          }
         }
       }
     },
@@ -84,24 +206,147 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["ts", "evento"],
+        "required": [
+          "ts",
+          "evento"
+        ],
         "properties": {
-          "ts":      { "type": "string", "format": "date-time" },
-          "evento":  { "type": "string" },
-          "detalle": { "type": "string" }
+          "ts": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "evento": {
+            "type": "string"
+          },
+          "detalle": {
+            "type": "string"
+          }
         }
       }
     },
     "cierre": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
-        "cerrado_ts":             { "type": "string", "format": "date-time" },
-        "minutos_detenida":       { "type": "number" },
-        "intervencion":           { "type": "string" },
-        "componentes_reemplazados": { "type": "array", "items": { "type": "string" } },
-        "falla_confirmada":       { "type": "boolean", "description": "Lo decide el técnico, no la plataforma" }
+        "cerrado_ts": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "minutos_detenida": {
+          "type": "number"
+        },
+        "intervencion": {
+          "type": "string"
+        },
+        "componentes_reemplazados": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "falla_confirmada": {
+          "type": "boolean",
+          "description": "Lo decide el técnico, no la plataforma"
+        }
       }
     },
-    "task_token": { "type": ["string", "null"], "description": "Token de Step Functions para cerrar desde la web. No se replica a Firestore" }
-  }
+    "task_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Token de Step Functions para cerrar desde la web. No se replica a Firestore"
+    }
+  },
+  "examples": [
+    {
+      "tenant_id": "MINA_SUR",
+      "incidente_id": "3f2c9a1e-7b44-4c1a-9a51-2d0e8f6b1c11",
+      "maquina_id": "EXC-007",
+      "modelo": "EXC-320",
+      "zona": "TAJO_NORTE",
+      "lat": -15.84,
+      "lon": -70.02,
+      "creado_ts": "2026-11-14T15:05:00Z",
+      "estado": "ASIGNADO",
+      "severidad": "MEDIA",
+      "variables_anomalas": [
+        {
+          "variable": "temp_motor_c",
+          "valor": 104.3,
+          "media_habitual": 88.0,
+          "z": 3.1,
+          "minutos_persistente": 25
+        },
+        {
+          "variable": "vibracion_mm_s",
+          "valor": 7.9,
+          "media_habitual": 4.1,
+          "z": 2.8,
+          "minutos_persistente": 20
+        },
+        {
+          "variable": "combustible_l_h",
+          "valor": 46.0,
+          "media_habitual": 37.5,
+          "z": 2.6,
+          "minutos_persistente": 30
+        }
+      ],
+      "analisis_ia": {
+        "nivel_riesgo": "MEDIO",
+        "resumen": "Temperatura, vibración y consumo suben juntos desde hace ~25 min respecto al historial de la máquina. Merece revisión; no hay evidencia suficiente para afirmar una causa.",
+        "posibles_causas_a_revisar": [
+          "Sistema de enfriamiento",
+          "Montajes del motor",
+          "Filtro de aire"
+        ],
+        "especialidad_sugerida": "MOTOR",
+        "mensajes_por_rol": {
+          "tecnico": "EXC-007 (Tajo Norte): temp 104 °C (+3.1σ), vibración 7.9 mm/s (+2.8σ), consumo 46 L/h (+2.6σ) sostenidos 25 min. Revisar enfriamiento y montajes.",
+          "supervisor": "EXC-007 con anomalía media. Asignada a Rosa Quispe (motor), llegada estimada 12 min.",
+          "gerente": "Una excavadora de Tajo Norte en revisión preventiva. Sin detención por ahora."
+        },
+        "es_diagnostico": false,
+        "fuente": "GEMINI"
+      },
+      "grupo_causa_comun": null,
+      "tecnico_asignado": {
+        "tecnico_id": "TEC-03",
+        "nombre": "Rosa Quispe",
+        "especialidad": "MOTOR",
+        "eta_min": 12,
+        "razon": "Especialidad MOTOR coincide; disponible; 2.1 km (ETA 12 min); 0 incidentes activos. Descartado TEC-01 (ocupado)."
+      },
+      "repuestos": [
+        {
+          "repuesto_id": "FILTRO-AIRE-320",
+          "almacen": "TALLER_CENTRAL",
+          "cantidad": 1,
+          "disponible": true
+        }
+      ],
+      "linea_tiempo": [
+        {
+          "ts": "2026-11-14T15:05:00Z",
+          "evento": "DETECTADO",
+          "detalle": "3 variables desviadas"
+        },
+        {
+          "ts": "2026-11-14T15:05:04Z",
+          "evento": "ANALIZADO",
+          "detalle": "Riesgo MEDIO (Gemini)"
+        },
+        {
+          "ts": "2026-11-14T15:05:06Z",
+          "evento": "ASIGNADO",
+          "detalle": "TEC-03, ETA 12 min"
+        }
+      ],
+      "cierre": null,
+      "task_token": null
+    }
+  ]
 }
