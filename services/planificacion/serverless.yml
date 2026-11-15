@@ -1,0 +1,110 @@
+# Carril ④ — SFN-2 · Planificación diaria (Parallel de 4 análisis → resumen IA → reporte + aviso al gerente).
+# Requiere services/ingesta y services/incidentes (usa su tema SNS) en el mismo stage.
+#
+#   npm install
+#   serverless deploy --stage dev
+# Ejecutar a mano para la demo:  aws stepfunctions start-execution --state-machine-arn <arn de la salida>
+service: arquifusion-planificacion
+
+plugins:
+  - serverless-step-functions
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 512
+  timeout: 60
+  logRetentionInDays: 14
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    TENANT: MINA_SUR
+    T_MAQUINAS: ${sls:stage}-t_maquinas
+    T_TELEMETRIA: ${sls:stage}-t_telemetria
+    T_INCIDENTES: ${sls:stage}-t_incidentes
+    T_REPUESTOS: ${sls:stage}-t_repuestos
+    T_REPORTES: ${sls:stage}-t_reportes
+    SECRET_GCP: arquifusion/gcp
+    TOPIC_ALERTAS: ${cf:arquifusion-incidentes-${sls:stage}.TemaAlertasArn}
+
+package:
+  patterns:
+    - "!tests/**"
+    - "!node_modules/**"
+    - "!package*.json"
+    - "!__pycache__/**"
+
+functions:
+  preventivo:       { handler: pasos_plan.preventivo }
+  combustible:      { handler: pasos_plan.combustible }
+  utilizacion:      { handler: pasos_plan.utilizacion }
+  repuestos:        { handler: pasos_plan.repuestos }
+  resumen:          { handler: pasos_plan.resumen, timeout: 30 }
+  resumenPlantilla: { handler: pasos_plan.resumen_plantilla }
+  guardar:          { handler: pasos_plan.guardar }
+
+stepFunctions:
+  validate: true
+  stateMachines:
+    planificacion:
+      id: PlanificacionStateMachine
+      name: arquifusion-planificacion-${sls:stage}
+      type: STANDARD
+      role: arn:aws:iam::${aws:accountId}:role/LabRole
+      events:
+        - schedule:
+            rate: cron(0 11 * * ? *)          # 06:00 en Lima
+            enabled: true
+            role: arn:aws:iam::${aws:accountId}:role/LabRole
+      definition:
+        Comment: "SFN-2 · Planificación diaria: preventivo, combustible, utilización y repuestos"
+        StartAt: Analizar
+        States:
+          Analizar:
+            Type: Parallel
+            ResultPath: $.analisis
+            Branches:
+              - StartAt: Preventivo
+                States:
+                  Preventivo: { Type: Task, Resource: { Fn::GetAtt: [preventivo, Arn] }, End: true }
+              - StartAt: Combustible
+                States:
+                  Combustible: { Type: Task, Resource: { Fn::GetAtt: [combustible, Arn] }, End: true }
+              - StartAt: Utilizacion
+                States:
+                  Utilizacion: { Type: Task, Resource: { Fn::GetAtt: [utilizacion, Arn] }, End: true }
+              - StartAt: Repuestos
+                States:
+                  Repuestos: { Type: Task, Resource: { Fn::GetAtt: [repuestos, Arn] }, End: true }
+            Next: ResumenConIA
+
+          ResumenConIA:
+            Type: Task
+            Resource: { Fn::GetAtt: [resumen, Arn] }
+            Retry:
+              - ErrorEquals: [IAError, Lambda.ServiceException, Lambda.TooManyRequestsException]
+                IntervalSeconds: 2
+                MaxAttempts: 2
+                BackoffRate: 2
+            Catch:
+              - ErrorEquals: [States.ALL]
+                ResultPath: $.error_ia
+                Next: ResumenPlantilla
+            Next: GuardarYAvisar
+
+          ResumenPlantilla:
+            Type: Task
+            Resource: { Fn::GetAtt: [resumenPlantilla, Arn] }
+            Next: GuardarYAvisar
+
+          GuardarYAvisar:
+            Type: Task
+            Resource: { Fn::GetAtt: [guardar, Arn] }
+            End: true
+
+resources:
+  Outputs:
+    PlanificacionStateMachineArn:
+      Value: { Ref: PlanificacionStateMachine }

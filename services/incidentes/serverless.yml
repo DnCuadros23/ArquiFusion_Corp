@@ -171,7 +171,7 @@ resources:
         Protocol: email
         Endpoint: ${param:emailGerente}
         FilterPolicyScope: MessageAttributes
-        FilterPolicy: { rol: [gerente], severidad: [CRITICA] }
+        FilterPolicy: { rol: [gerente], severidad: [CRITICA, REPORTE] }
 
   Outputs:
     IncidentesStateMachineArn:

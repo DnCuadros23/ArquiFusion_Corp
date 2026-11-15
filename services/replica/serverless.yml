@@ -1,0 +1,57 @@
+# Carril ⑤ — Réplica multi-nube: DynamoDB Streams (t_maquinas, t_incidentes) → Google Firestore.
+# Requiere services/ingesta en el mismo stage. Funciona aunque Google todavía no esté listo.
+#
+#   serverless deploy --stage dev
+service: arquifusion-replica
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  logRetentionInDays: 14
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    SECRET_GCP: arquifusion/gcp
+
+package:
+  patterns:
+    - "!tests/**"
+    - "!replicar_todo.py"
+    - "!__pycache__/**"
+
+custom:
+  stream: &stream
+    type: dynamodb
+    batchSize: 50
+    maximumBatchingWindow: 5
+    startingPosition: LATEST
+    maximumRetryAttempts: 5
+    bisectBatchOnFunctionError: true
+    functionResponseType: ReportBatchItemFailures
+    destinations:
+      onFailure:
+        arn: { Fn::GetAtt: [ColaReplicaDLQ, Arn] }
+        type: sqs
+
+functions:
+  replicador:
+    handler: replicador.handler
+    timeout: 60
+    events:
+      - stream:
+          <<: *stream
+          arn: ${cf:arquifusion-ingesta-${sls:stage}.TMaquinasStreamArn}
+      - stream:
+          <<: *stream
+          arn: ${cf:arquifusion-ingesta-${sls:stage}.TIncidentesStreamArn}
+
+resources:
+  Resources:
+    ColaReplicaDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${sls:stage}-replica-dlq
+        MessageRetentionPeriod: 1209600
