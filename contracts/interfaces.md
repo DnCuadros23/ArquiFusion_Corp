@@ -77,6 +77,8 @@ Todas las llamadas llevan el header `X-Arquifusion-Token: <token compartido>`. S
 - **Cuerpo:** una lectura (`telemetria.schema.json`) o una lista de lecturas.
 - **Respuesta:** `202` → `{ "encoladas": n }`.
 - Denilson le pasa a Enrique `INGESTA_URL` y la API key por mensaje privado.
+- **Calentamiento del detector:** cada máquina necesita **20 lecturas normales** antes de que se evalúen anomalías (con eso aprende su comportamiento habitual). Antes de lanzar cualquier escenario de falla, el simulador debe mandar al menos 25 rondas del escenario `normal`. Superar un límite físico (temperatura > 115 °C, vibración > 12 mm/s, presión > 400 bar) se detecta siempre, aun sin calentamiento.
+- Con la degradación del escenario `degradacion` (+2 °C por lectura, junto con vibración y combustible), el incidente se abre en la 5.ª lectura anómala.
 
 ---
 

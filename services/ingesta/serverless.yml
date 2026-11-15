@@ -1,0 +1,245 @@
+# Carril ② — Ingesta de telemetría + capa de datos compartida.
+# Este stack crea TODAS las tablas y el data lake; los demás servicios las usan por nombre
+# (${stage}-t_<tabla>) o leen sus Outputs con ${cf:arquifusion-ingesta-<stage>.<Output>}.
+#
+#   serverless deploy --stage dev
+#   aws apigateway get-api-keys --include-values --query "items[?name=='dev-arquifusion-ingesta'].value" --output text
+service: arquifusion-ingesta
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  logRetentionInDays: 14
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  apiGateway:
+    apiKeys:
+      - ${sls:stage}-arquifusion-ingesta
+    usagePlan:
+      throttle:
+        burstLimit: 200
+        rateLimit: 100
+  environment:
+    STAGE: ${sls:stage}
+    TENANT_DEFAULT: MINA_SUR
+    T_MAQUINAS: ${sls:stage}-t_maquinas
+    T_TELEMETRIA: ${sls:stage}-t_telemetria
+    T_INCIDENTES: ${sls:stage}-t_incidentes
+    BUCKET_DATALAKE: ${sls:stage}-arquifusion-datalake-${aws:accountId}
+    SFN_INCIDENTES_ARN: arn:aws:states:${aws:region}:${aws:accountId}:stateMachine:arquifusion-incidentes-${sls:stage}
+
+package:
+  patterns:
+    - "!tests/**"
+    - "!cargar_seed.py"
+    - "!__pycache__/**"
+
+functions:
+  recibir:
+    handler: recibir.handler
+    timeout: 10
+    environment:
+      QUEUE_URL:
+        Ref: ColaTelemetria
+    events:
+      - http:
+          path: telemetria
+          method: post
+          private: true        # exige header x-api-key
+
+  ingesta:
+    handler: ingesta.handler
+    timeout: 60
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt: [ColaTelemetria, Arn]
+          batchSize: 10
+          maximumBatchingWindow: 5
+          functionResponseType: ReportBatchItemFailures
+
+resources:
+  Resources:
+    # ---------- Colas ----------
+    ColaTelemetriaDLQ:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${sls:stage}-t-telemetria-dlq
+        MessageRetentionPeriod: 1209600
+    ColaTelemetria:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${sls:stage}-t-telemetria
+        VisibilityTimeout: 360          # 6 x timeout de λ ingesta
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt: [ColaTelemetriaDLQ, Arn]
+          maxReceiveCount: 3
+
+    # ---------- Data lake ----------
+    BucketDatalake:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${sls:stage}-arquifusion-datalake-${aws:accountId}
+        VersioningConfiguration:
+          Status: Enabled
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+
+    # ---------- Tablas (on-demand + PITR) ----------
+    TablaMaquinas:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_maquinas
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        StreamSpecification: { StreamViewType: NEW_IMAGE }
+        AttributeDefinitions:
+          - { AttributeName: tenant_id, AttributeType: S }
+          - { AttributeName: maquina_id, AttributeType: S }
+        KeySchema:
+          - { AttributeName: tenant_id, KeyType: HASH }
+          - { AttributeName: maquina_id, KeyType: RANGE }
+
+    TablaTelemetria:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_telemetria
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        TimeToLiveSpecification: { AttributeName: expira, Enabled: true }
+        AttributeDefinitions:
+          - { AttributeName: maquina_id, AttributeType: S }
+          - { AttributeName: ts, AttributeType: S }
+        KeySchema:
+          - { AttributeName: maquina_id, KeyType: HASH }
+          - { AttributeName: ts, KeyType: RANGE }
+
+    TablaIncidentes:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_incidentes
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        StreamSpecification: { StreamViewType: NEW_IMAGE }
+        AttributeDefinitions:
+          - { AttributeName: tenant_id, AttributeType: S }
+          - { AttributeName: incidente_id, AttributeType: S }
+          - { AttributeName: maquina_id, AttributeType: S }
+          - { AttributeName: creado_ts, AttributeType: S }
+        KeySchema:
+          - { AttributeName: tenant_id, KeyType: HASH }
+          - { AttributeName: incidente_id, KeyType: RANGE }
+        GlobalSecondaryIndexes:
+          - IndexName: por_maquina
+            KeySchema:
+              - { AttributeName: maquina_id, KeyType: HASH }
+              - { AttributeName: creado_ts, KeyType: RANGE }
+            Projection: { ProjectionType: ALL }
+
+    TablaTecnicos:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_tecnicos
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        AttributeDefinitions:
+          - { AttributeName: tenant_id, AttributeType: S }
+          - { AttributeName: tecnico_id, AttributeType: S }
+        KeySchema:
+          - { AttributeName: tenant_id, KeyType: HASH }
+          - { AttributeName: tecnico_id, KeyType: RANGE }
+
+    TablaRepuestos:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_repuestos
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        AttributeDefinitions:
+          - { AttributeName: tenant_id, AttributeType: S }
+          - { AttributeName: repuesto_almacen, AttributeType: S }   # "<repuesto_id>#<almacen>"
+        KeySchema:
+          - { AttributeName: tenant_id, KeyType: HASH }
+          - { AttributeName: repuesto_almacen, KeyType: RANGE }
+
+    TablaMantenimientos:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_mantenimientos
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        AttributeDefinitions:
+          - { AttributeName: maquina_id, AttributeType: S }
+          - { AttributeName: fecha, AttributeType: S }
+        KeySchema:
+          - { AttributeName: maquina_id, KeyType: HASH }
+          - { AttributeName: fecha, KeyType: RANGE }
+
+    TablaReportes:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_reportes
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        AttributeDefinitions:
+          - { AttributeName: tenant_id, AttributeType: S }
+          - { AttributeName: fecha_tipo, AttributeType: S }         # "AAAA-MM-DD#diario"
+        KeySchema:
+          - { AttributeName: tenant_id, KeyType: HASH }
+          - { AttributeName: fecha_tipo, KeyType: RANGE }
+
+    TablaUmbrales:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_umbrales
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        AttributeDefinitions:
+          - { AttributeName: modelo, AttributeType: S }
+          - { AttributeName: variable, AttributeType: S }
+        KeySchema:
+          - { AttributeName: modelo, KeyType: HASH }
+          - { AttributeName: variable, KeyType: RANGE }
+
+    TablaUsuarios:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_usuarios
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification: { PointInTimeRecoveryEnabled: true }
+        AttributeDefinitions:
+          - { AttributeName: usuario, AttributeType: S }
+        KeySchema:
+          - { AttributeName: usuario, KeyType: HASH }
+
+    TablaTokens:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${sls:stage}-t_tokens
+        BillingMode: PAY_PER_REQUEST
+        TimeToLiveSpecification: { AttributeName: expira, Enabled: true }
+        AttributeDefinitions:
+          - { AttributeName: token, AttributeType: S }
+        KeySchema:
+          - { AttributeName: token, KeyType: HASH }
+
+  Outputs:
+    TMaquinasStreamArn:
+      Value: { Fn::GetAtt: [TablaMaquinas, StreamArn] }
+    TIncidentesStreamArn:
+      Value: { Fn::GetAtt: [TablaIncidentes, StreamArn] }
+    BucketDatalake:
+      Value: { Ref: BucketDatalake }
+    ColaTelemetriaUrl:
+      Value: { Ref: ColaTelemetria }
