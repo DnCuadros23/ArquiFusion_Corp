@@ -1,0 +1,24 @@
+[
+  {
+    "tenant_id": "MINA_SUR",
+    "usuario": "tecnico1",
+    "password_sha256": "03ae43bba3f6b60e2786a938760279316d4ffa8ffc4ec3a4ac998a94079fad4f",
+    "rol": "tecnico",
+    "nombre": "Luis Mamani",
+    "tecnico_id": "TEC-001"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "usuario": "supervisor1",
+    "password_sha256": "aded6f75dd64a3f153d5b6be2fc91d5b94f17f606643b13c2b69200782d53daa",
+    "rol": "supervisor",
+    "nombre": "Sofía Ramos"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "usuario": "gerente1",
+    "password_sha256": "caaab8a6624ade15dfe6f04e566139cdb0d67f4b60a936e8b61303e37420e0c2",
+    "rol": "gerente",
+    "nombre": "Diego Salas"
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-001",
+    "nombre": "Luis Mamani",
+    "especialidad": "MOTOR",
+    "zona": "TAJO_NORTE",
+    "lat": -15.81803,
+    "lon": -70.01951,
+    "disponible": true,
+    "email": "tecnico1@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-002",
+    "nombre": "Rosa Quispe",
+    "especialidad": "MOTOR",
+    "zona": "TALLER_CENTRAL",
+    "lat": -15.84329,
+    "lon": -70.00906,
+    "disponible": true,
+    "email": "tecnico2@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-003",
+    "nombre": "Jorge Condori",
+    "especialidad": "HIDRAULICO",
+    "zona": "TAJO_SUR",
+    "lat": -15.86523,
+    "lon": -70.02327,
+    "disponible": true,
+    "email": "tecnico3@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-004",
+    "nombre": "Ana Huanca",
+    "especialidad": "HIDRAULICO",
+    "zona": "CHANCADORA",
+    "lat": -15.84163,
+    "lon": -69.98205,
+    "disponible": true,
+    "email": "tecnico4@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-005",
+    "nombre": "Pedro Ccori",
+    "especialidad": "ELECTRICO",
+    "zona": "TALLER_CENTRAL",
+    "lat": -15.84704,
+    "lon": -70.00947,
+    "disponible": true,
+    "email": "tecnico5@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-006",
+    "nombre": "Marta Apaza",
+    "especialidad": "TREN_RODAJE",
+    "zona": "TAJO_SUR",
+    "lat": -15.86408,
+    "lon": -70.02776,
+    "disponible": true,
+    "email": "tecnico6@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-007",
+    "nombre": "Carlos Yucra",
+    "especialidad": "GENERAL",
+    "zona": "TAJO_NORTE",
+    "lat": -15.81858,
+    "lon": -70.02177,
+    "disponible": false,
+    "email": "tecnico7@example.com"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "tecnico_id": "TEC-008",
+    "nombre": "Elena Pari",
+    "especialidad": "GENERAL",
+    "zona": "CHANCADORA",
+    "lat": -15.83733,
+    "lon": -69.98694,
+    "disponible": true,
+    "email": "tecnico8@example.com"
+  }
+]
