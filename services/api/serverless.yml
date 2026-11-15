@@ -1,0 +1,77 @@
+# Carril ① — API para la web: login, autorizador Bearer y consultas.
+# Requiere services/ingesta (tablas) y services/incidentes (para cerrar) en el mismo stage.
+#
+#   serverless deploy --stage dev
+service: arquifusion-api
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 10
+  logRetentionInDays: 14
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    CORS_ORIGIN: "*"      # en la demo: cambiar por el dominio de Firebase Hosting
+    T_USUARIOS: ${sls:stage}-t_usuarios
+    T_TOKENS: ${sls:stage}-t_tokens
+    T_MAQUINAS: ${sls:stage}-t_maquinas
+    T_TELEMETRIA: ${sls:stage}-t_telemetria
+    T_INCIDENTES: ${sls:stage}-t_incidentes
+    T_TECNICOS: ${sls:stage}-t_tecnicos
+    T_REPORTES: ${sls:stage}-t_reportes
+
+package:
+  patterns:
+    - "!tests/**"
+    - "!__pycache__/**"
+
+custom:
+  autorizacion: &autorizacion
+    name: autorizador
+    type: token
+    identitySource: method.request.header.Authorization
+    resultTtlInSeconds: 0
+
+functions:
+  autorizador:
+    handler: auth.autorizador
+
+  login:
+    handler: auth.login
+    events:
+      - http: { path: api/login, method: post, cors: true }
+
+  api:
+    handler: rutas.handler
+    events:
+      - http: { path: api/maquinas, method: get, cors: true, authorizer: *autorizacion }
+      - http: { path: "api/maquinas/{id}", method: get, cors: true, authorizer: *autorizacion }
+      - http: { path: api/incidentes, method: get, cors: true, authorizer: *autorizacion }
+      - http: { path: "api/incidentes/{id}", method: get, cors: true, authorizer: *autorizacion }
+      - http: { path: "api/incidentes/{id}/cerrar", method: post, cors: true, authorizer: *autorizacion }
+      - http: { path: api/tecnicos, method: get, cors: true, authorizer: *autorizacion }
+      - http: { path: api/reportes/ultimo, method: get, cors: true, authorizer: *autorizacion }
+
+resources:
+  Resources:
+    # Para que el navegador vea los 401/403 del autorizador (si no, aparecen como error de CORS).
+    Respuesta4xx:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        RestApiId: { Ref: ApiGatewayRestApi }
+        ResponseType: DEFAULT_4XX
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,Authorization'"
+    Respuesta5xx:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        RestApiId: { Ref: ApiGatewayRestApi }
+        ResponseType: DEFAULT_5XX
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,Authorization'"
