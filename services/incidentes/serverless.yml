@@ -1,0 +1,180 @@
+# Carril ③ — SFN-1 · Flujo de incidente (Step Functions Standard) + SNS por rol.
+# Requiere que services/ingesta ya esté desplegado en el mismo stage (usa sus tablas).
+#
+#   npm install
+#   serverless deploy --stage dev --param="emailTecnico=a@x.com" --param="emailSupervisor=b@x.com" --param="emailGerente=c@x.com"
+# Los correos van por parámetro para no subirlos al repo. Cada uno debe confirmar la suscripción desde su bandeja.
+service: arquifusion-incidentes
+
+plugins:
+  - serverless-step-functions
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 15
+  logRetentionInDays: 14
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    T_INCIDENTES: ${sls:stage}-t_incidentes
+    T_MAQUINAS: ${sls:stage}-t_maquinas
+    T_TECNICOS: ${sls:stage}-t_tecnicos
+    T_REPUESTOS: ${sls:stage}-t_repuestos
+    T_MANTENIMIENTOS: ${sls:stage}-t_mantenimientos
+    SECRET_GCP: arquifusion/gcp
+    TOPIC_ALERTAS:
+      Ref: TemaAlertas
+
+package:
+  patterns:
+    - "!tests/**"
+    - "!node_modules/**"
+    - "!package*.json"
+    - "!__pycache__/**"
+
+functions:
+  enriquecer:   { handler: pasos.enriquecer }
+  analizar:     { handler: pasos.analizar, timeout: 30 }
+  plantilla:    { handler: pasos.plantilla }
+  observacion:  { handler: pasos.observacion }
+  causaComun:   { handler: pasos.causa_comun }
+  asignar:      { handler: pasos.asignar }
+  repuestos:    { handler: pasos.repuestos }
+  notificar:    { handler: pasos.notificar }
+  guardarToken: { handler: pasos.guardar_token }
+  cerrar:       { handler: pasos.cerrar }
+
+stepFunctions:
+  validate: true
+  stateMachines:
+    incidentes:
+      id: IncidentesStateMachine
+      name: arquifusion-incidentes-${sls:stage}      # el mismo ARN que usa services/ingesta
+      type: STANDARD
+      role: arn:aws:iam::${aws:accountId}:role/LabRole
+      definition:
+        Comment: "SFN-1 · Flujo de incidente: de la anomalía al cierre con historial"
+        StartAt: Enriquecer
+        States:
+          Enriquecer:
+            Type: Task
+            Resource: { Fn::GetAtt: [enriquecer, Arn] }
+            Next: AnalizarConIA
+
+          AnalizarConIA:
+            Type: Task
+            Resource: { Fn::GetAtt: [analizar, Arn] }
+            Retry:
+              - ErrorEquals: [IAError, Lambda.ServiceException, Lambda.TooManyRequestsException]
+                IntervalSeconds: 2
+                MaxAttempts: 2
+                BackoffRate: 2
+            Catch:
+              - ErrorEquals: [States.ALL]
+                ResultPath: $.error_ia
+                Next: PlantillaIA
+            Next: Severidad
+
+          PlantillaIA:
+            Type: Task
+            Resource: { Fn::GetAtt: [plantilla, Arn] }
+            Next: Severidad
+
+          Severidad:
+            Type: Choice
+            Choices:
+              - Variable: $.severidad
+                StringEquals: OBSERVACION
+                Next: RegistrarObservacion
+            Default: CausaComun
+
+          RegistrarObservacion:
+            Type: Task
+            Resource: { Fn::GetAtt: [observacion, Arn] }
+            End: true
+
+          CausaComun:
+            Type: Task
+            Resource: { Fn::GetAtt: [causaComun, Arn] }
+            Next: AsignarTecnico
+
+          AsignarTecnico:
+            Type: Task
+            Resource: { Fn::GetAtt: [asignar, Arn] }
+            Next: ReservarRepuestos
+
+          ReservarRepuestos:
+            Type: Task
+            Resource: { Fn::GetAtt: [repuestos, Arn] }
+            Next: NotificarPorRol
+
+          NotificarPorRol:
+            Type: Task
+            Resource: { Fn::GetAtt: [notificar, Arn] }
+            Next: EsperarTecnico
+
+          EsperarTecnico:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke.waitForTaskToken
+            Parameters:
+              FunctionName: { Fn::GetAtt: [guardarToken, Arn] }
+              Payload:
+                incidente.$: $
+                token.$: $$.Task.Token
+            ResultPath: $.cierre_recibido
+            TimeoutSeconds: 86400
+            Catch:
+              - ErrorEquals: [States.Timeout]
+                ResultPath: $.error_espera
+                Next: CerrarYRegistrar
+            Next: CerrarYRegistrar
+
+          CerrarYRegistrar:
+            Type: Task
+            Resource: { Fn::GetAtt: [cerrar, Arn] }
+            End: true
+
+resources:
+  Resources:
+    TemaAlertas:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${sls:stage}-alertas-flota
+        DisplayName: ArquiFusion Alertas
+
+    SubTecnico:
+      Type: AWS::SNS::Subscription
+      Properties:
+        TopicArn: { Ref: TemaAlertas }
+        Protocol: email
+        Endpoint: ${param:emailTecnico}
+        FilterPolicyScope: MessageAttributes
+        FilterPolicy: { rol: [tecnico] }
+
+    SubSupervisor:
+      Type: AWS::SNS::Subscription
+      Properties:
+        TopicArn: { Ref: TemaAlertas }
+        Protocol: email
+        Endpoint: ${param:emailSupervisor}
+        FilterPolicyScope: MessageAttributes
+        FilterPolicy: { rol: [supervisor], severidad: [MEDIA, CRITICA] }
+
+    SubGerente:
+      Type: AWS::SNS::Subscription
+      Properties:
+        TopicArn: { Ref: TemaAlertas }
+        Protocol: email
+        Endpoint: ${param:emailGerente}
+        FilterPolicyScope: MessageAttributes
+        FilterPolicy: { rol: [gerente], severidad: [CRITICA] }
+
+  Outputs:
+    IncidentesStateMachineArn:
+      Value: { Ref: IncidentesStateMachine }
+    TemaAlertasArn:
+      Value: { Ref: TemaAlertas }
