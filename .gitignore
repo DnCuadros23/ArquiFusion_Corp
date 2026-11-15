@@ -1,0 +1,35 @@
+# Secretos: NUNCA se suben
+.env
+.env.*
+*.pem
+*service-account*.json
+*-key.json
+credentials*
+gcp/**/key*.json
+
+# Serverless / AWS
+.serverless/
+.esbuild/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Node / frontend
+node_modules/
+dist/
+.firebase/
+*.log
+
+# Datos descargados (van a S3, no al repo)
+data/raw/
+*.parquet
+
+# Sistema / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
