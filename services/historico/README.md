@@ -10,7 +10,7 @@ EventBridge (domingos) → DescargarDatasets → IniciarCrawler → (Wait 20 s �
   - Open-Meteo: clima diario de los últimos 30 días por zona, en `raw/historico/clima/`.
 - **Glue crawler `arquifusion-ai4i-<stage>`:** cataloga el CSV como la tabla `arquifusion_<stage>.ai4i`.
 - **Athena:** compara los registros con falla contra los normales.
-- **Resultado en `t_umbrales`** (modelo `REFERENCIA_AI4I`). Con los datos reales sale, por ejemplo: *"En registros con falla, el desgaste acumulado es 36 % mayor y el torque 27 % mayor que en operación normal"*. Son **patrones de referencia, no reglas de diagnóstico**.
+- **Resultado en `t_umbrales`** (modelo `REFERENCIA_AI4I`). Con los datos reales sale, por ejemplo: *"En registros con falla, el desgaste acumulado es 35 % mayor y el torque 27 % mayor que en operación normal"*. Son **patrones de referencia, no reglas de diagnóstico**.
 
 ## Desplegar y ejecutar
 ```bash
