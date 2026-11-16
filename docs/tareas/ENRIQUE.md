@@ -16,7 +16,7 @@ Tu trabajo hace que la demo **cuente una historia creíble** y que la entrega cu
 
 | Archivo | Contenido |
 |---|---|
-| `zonas.json` | 4 zonas cercanas entre sí (a 2–8 km): `TAJO_NORTE`, `TAJO_SUR`, `CHANCADORA`, `TALLER_CENTRAL`, con su centro `lat`/`lon` (alrededor de −15.84, −70.02) |
+| `zonas.json` | 4 zonas cercanas entre sí (a 2–8 km): `TAJO_NORTE`, `TAJO_SUR`, `CHANCADORA`, `TALLER_CENTRAL`, con su centro `lat`/`lon` (alrededor de −16.72, −71.85 (pampa desértica de Arequipa)) |
 | `maquinas.json` | **30 máquinas** en 3 modelos: 12 excavadoras `EXC-320` (`EXC-001…012`), 12 camiones `CAM-793` (`CAM-001…012`) y 6 cargadores `CAR-994` (`CAR-001…006`). Repartidas en las zonas, con horas de motor distintas (1 500 a 12 000) y `costo_hora_usd` según el modelo |
 | `tecnicos.json` | **8 técnicos**: 2 MOTOR, 2 HIDRAULICO, 1 ELECTRICO, 1 TREN_RODAJE y 2 GENERAL, en zonas distintas, uno ya ocupado. Como `email` usa los correos del equipo |
 | `repuestos.json` | ~15 repuestos en 2 almacenes (`TALLER_CENTRAL`, `TAJO_SUR`): filtros de aire y aceite, sellos hidráulicos, correas, inyectores… Que alguno tenga **stock bajo** a propósito |

@@ -5,8 +5,8 @@
     "nombre": "Luis Mamani",
     "especialidad": "MOTOR",
     "zona": "TAJO_NORTE",
-    "lat": -15.81803,
-    "lon": -70.01951,
+    "lat": -16.69553,
+    "lon": -71.86451,
     "disponible": true,
     "email": "tecnico1@example.com"
   },
@@ -16,8 +16,8 @@
     "nombre": "Rosa Quispe",
     "especialidad": "MOTOR",
     "zona": "TALLER_CENTRAL",
-    "lat": -15.84329,
-    "lon": -70.00906,
+    "lat": -16.72079,
+    "lon": -71.85406,
     "disponible": true,
     "email": "tecnico2@example.com"
   },
@@ -27,8 +27,8 @@
     "nombre": "Jorge Condori",
     "especialidad": "HIDRAULICO",
     "zona": "TAJO_SUR",
-    "lat": -15.86523,
-    "lon": -70.02327,
+    "lat": -16.74273,
+    "lon": -71.86827,
     "disponible": true,
     "email": "tecnico3@example.com"
   },
@@ -38,8 +38,8 @@
     "nombre": "Ana Huanca",
     "especialidad": "HIDRAULICO",
     "zona": "CHANCADORA",
-    "lat": -15.84163,
-    "lon": -69.98205,
+    "lat": -16.71913,
+    "lon": -71.82705,
     "disponible": true,
     "email": "tecnico4@example.com"
   },
@@ -49,8 +49,8 @@
     "nombre": "Pedro Ccori",
     "especialidad": "ELECTRICO",
     "zona": "TALLER_CENTRAL",
-    "lat": -15.84704,
-    "lon": -70.00947,
+    "lat": -16.72454,
+    "lon": -71.85447,
     "disponible": true,
     "email": "tecnico5@example.com"
   },
@@ -60,8 +60,8 @@
     "nombre": "Marta Apaza",
     "especialidad": "TREN_RODAJE",
     "zona": "TAJO_SUR",
-    "lat": -15.86408,
-    "lon": -70.02776,
+    "lat": -16.74158,
+    "lon": -71.87276,
     "disponible": true,
     "email": "tecnico6@example.com"
   },
@@ -71,8 +71,8 @@
     "nombre": "Carlos Yucra",
     "especialidad": "GENERAL",
     "zona": "TAJO_NORTE",
-    "lat": -15.81858,
-    "lon": -70.02177,
+    "lat": -16.69608,
+    "lon": -71.86677,
     "disponible": false,
     "email": "tecnico7@example.com"
   },
@@ -82,8 +82,8 @@
     "nombre": "Elena Pari",
     "especialidad": "GENERAL",
     "zona": "CHANCADORA",
-    "lat": -15.83733,
-    "lon": -69.98694,
+    "lat": -16.71483,
+    "lon": -71.83194,
     "disponible": true,
     "email": "tecnico8@example.com"
   }

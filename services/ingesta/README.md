@@ -22,7 +22,7 @@ python cargar_seed.py --stage dev
 
 ## Probar
 ```bash
-curl -X POST "$INGESTA_URL/telemetria" -H "x-api-key: $API_KEY" -H "Content-Type: application/json" -d '{"tenant_id":"MINA_SUR","maquina_id":"EXC-007","modelo":"EXC-320","ts":"2026-11-15T15:00:00Z","zona":"TAJO_NORTE","lat":-15.84,"lon":-70.02,"estado":"OPERANDO","horas_motor":4521.5,"temp_motor_c":120}'
+curl -X POST "$INGESTA_URL/telemetria" -H "x-api-key: $API_KEY" -H "Content-Type: application/json" -d '{"tenant_id":"MINA_SUR","maquina_id":"EXC-007","modelo":"EXC-320","ts":"2026-11-15T15:00:00Z","zona":"TAJO_NORTE","lat":-16.7175,"lon":-71.865,"estado":"OPERANDO","horas_motor":4521.5,"temp_motor_c":120}'
 ```
 
 Debe responder `202 {"encoladas": 1}`. Como la temperatura supera el límite físico, en `dev-t_incidentes` aparece un incidente `CRITICA`.
