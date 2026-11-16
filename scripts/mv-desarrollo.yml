@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  MV Desarrollo ArquiFusion: Ubuntu 22.04 con Node 20, Serverless Framework, AWS CLI v2,
+  Python (boto3) y el repo clonado. Se conecta por EC2 Instance Connect.
+
+Parameters:
+  ImagenUbuntu:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id
+  TipoInstancia:
+    Type: String
+    Default: t3.medium
+    AllowedValues: [t3.small, t3.medium, t3.large]
+  RamaRepo:
+    Type: String
+    Default: feat/aws-denilson
+
+Resources:
+  GrupoSeguridad:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SSH para EC2 Instance Connect
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  MVDesarrollo:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: { Ref: ImagenUbuntu }
+      InstanceType: { Ref: TipoInstancia }
+      KeyName: vockey
+      IamInstanceProfile: LabInstanceProfile
+      SecurityGroupIds: [{ "Fn::GetAtt": [GrupoSeguridad, GroupId] }]
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs: { VolumeSize: 20, VolumeType: gp3 }
+      Tags:
+        - { Key: Name, Value: MV Desarrollo ArquiFusion }
+      UserData:
+        Fn::Base64:
+          Fn::Sub: |
+            #!/bin/bash
+            exec > /var/log/instalacion-arquifusion.log 2>&1
+            set -x
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get update -y
+            apt-get install -y git unzip curl python3-pip
+            curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+            apt-get install -y nodejs
+            npm install -g serverless
+            curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /tmp/awscliv2.zip
+            unzip -q /tmp/awscliv2.zip -d /tmp && /tmp/aws/install
+            pip3 install boto3 pyyaml
+            sudo -u ubuntu git clone -b ${RamaRepo} https://github.com/DnCuadros23/ArquiFusion_Corp.git /home/ubuntu/ArquiFusion_Corp || echo "No se pudo clonar (¿repo privado?). Clónalo a mano."
+            echo 'export AWS_PAGER=""' >> /home/ubuntu/.bashrc
+            echo 'export AWS_DEFAULT_REGION=us-east-1' >> /home/ubuntu/.bashrc
+            echo "Instalación terminada: $(date)" > /home/ubuntu/LISTO.txt
+            chown ubuntu:ubuntu /home/ubuntu/LISTO.txt
+
+Outputs:
+  Instancia:
+    Value: { Ref: MVDesarrollo }
+  IpPublica:
+    Value: { "Fn::GetAtt": [MVDesarrollo, PublicIp] }
