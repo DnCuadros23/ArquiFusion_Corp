@@ -1,0 +1,149 @@
+# Carril ⑥ — SFN-3 · Aprendizaje histórico:
+# descarga AI4I (UCI) + clima (Open-Meteo) → S3 raw/ → Glue crawler → Athena → t_umbrales.
+# Requiere services/ingesta (bucket y tablas) en el mismo stage.
+#
+#   npm install
+#   serverless deploy --stage dev
+service: arquifusion-historico
+
+plugins:
+  - serverless-step-functions
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 512
+  timeout: 120
+  logRetentionInDays: 14
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    TENANT: MINA_SUR
+    BUCKET_DATALAKE: ${cf:arquifusion-ingesta-${sls:stage}.BucketDatalake}
+    T_MAQUINAS: ${sls:stage}-t_maquinas
+    T_UMBRALES: ${sls:stage}-t_umbrales
+
+package:
+  patterns:
+    - "!tests/**"
+    - "!node_modules/**"
+    - "!package*.json"
+    - "!__pycache__/**"
+
+functions:
+  descargar:          { handler: pasos_hist.descargar }
+  actualizarUmbrales: { handler: pasos_hist.actualizar_umbrales, timeout: 30 }
+
+stepFunctions:
+  validate: true
+  stateMachines:
+    historico:
+      id: HistoricoStateMachine
+      name: arquifusion-historico-${sls:stage}
+      type: STANDARD
+      role: arn:aws:iam::${aws:accountId}:role/LabRole
+      events:
+        - schedule:
+            rate: cron(0 12 ? * SUN *)        # domingos 07:00 en Lima
+            enabled: true
+            role: arn:aws:iam::${aws:accountId}:role/LabRole
+      definition:
+        Comment: "SFN-3 · Aprender del histórico: fuentes públicas → data lake → Glue → Athena → umbrales"
+        StartAt: DescargarDatasets
+        States:
+          DescargarDatasets:
+            Type: Task
+            Resource: { Fn::GetAtt: [descargar, Arn] }
+            Retry:
+              - ErrorEquals: [States.ALL]
+                IntervalSeconds: 5
+                MaxAttempts: 2
+                BackoffRate: 2
+            ResultPath: $.descarga
+            Next: IniciarCrawler
+
+          IniciarCrawler:
+            Type: Task
+            Resource: arn:aws:states:::aws-sdk:glue:startCrawler
+            Parameters:
+              Name: arquifusion-ai4i-${sls:stage}
+            Catch:
+              - ErrorEquals: [Glue.CrawlerRunningException]
+                ResultPath: null
+                Next: EsperarCrawler
+            ResultPath: null
+            Next: EsperarCrawler
+
+          EsperarCrawler:
+            Type: Wait
+            Seconds: 20
+            Next: EstadoCrawler
+
+          EstadoCrawler:
+            Type: Task
+            Resource: arn:aws:states:::aws-sdk:glue:getCrawler
+            Parameters:
+              Name: arquifusion-ai4i-${sls:stage}
+            ResultSelector:
+              estado.$: $.Crawler.State
+            ResultPath: $.crawler
+            Next: CrawlerListo
+
+          CrawlerListo:
+            Type: Choice
+            Choices:
+              - Variable: $.crawler.estado
+                StringEquals: READY
+                Next: ConsultarAthena
+            Default: EsperarCrawler
+
+          ConsultarAthena:
+            Type: Task
+            Resource: arn:aws:states:::athena:startQueryExecution.sync
+            Parameters:
+              QueryString: >-
+                SELECT falla, count(*) AS registros,
+                avg(temp_proceso_k - temp_aire_k) AS dif_temperatura_k, avg(rpm) AS rpm,
+                avg(torque_nm) AS torque_nm, avg(desgaste_min) AS desgaste_min,
+                avg(torque_nm * rpm * 2 * pi() / 60) AS potencia_w
+                FROM "arquifusion_${sls:stage}"."ai4i" GROUP BY falla
+              QueryExecutionContext:
+                Database: arquifusion_${sls:stage}
+              ResultConfiguration:
+                OutputLocation: s3://${cf:arquifusion-ingesta-${sls:stage}.BucketDatalake}/athena-results/
+            ResultPath: $.athena
+            Next: ActualizarUmbrales
+
+          ActualizarUmbrales:
+            Type: Task
+            Resource: { Fn::GetAtt: [actualizarUmbrales, Arn] }
+            End: true
+
+resources:
+  Resources:
+    BaseGlue:
+      Type: AWS::Glue::Database
+      Properties:
+        CatalogId: { Ref: AWS::AccountId }
+        DatabaseInput:
+          Name: arquifusion_${sls:stage}
+          Description: Catálogo del data lake de ArquiFusion
+
+    CrawlerAI4I:
+      Type: AWS::Glue::Crawler
+      Properties:
+        Name: arquifusion-ai4i-${sls:stage}
+        Role: arn:aws:iam::${aws:accountId}:role/LabRole
+        DatabaseName: { Ref: BaseGlue }
+        Targets:
+          S3Targets:
+            - Path: s3://${cf:arquifusion-ingesta-${sls:stage}.BucketDatalake}/raw/historico/ai4i/
+        SchemaChangePolicy:
+          UpdateBehavior: UPDATE_IN_DATABASE
+          DeleteBehavior: LOG
+
+  Outputs:
+    HistoricoStateMachineArn:
+      Value: { Ref: HistoricoStateMachine }

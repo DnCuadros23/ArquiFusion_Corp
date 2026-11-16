@@ -1,0 +1,8 @@
+{
+  "name": "arquifusion-planificacion",
+  "private": true,
+  "description": "SFN-2 · Planificación diaria",
+  "devDependencies": {
+    "serverless-step-functions": "^3.21.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "arquifusion-incidentes",
+  "private": true,
+  "description": "SFN-1 · Flujo de incidente",
+  "devDependencies": {
+    "serverless-step-functions": "^3.21.0"
+  }
+}
