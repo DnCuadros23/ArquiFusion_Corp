@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Datos simulados: la web puede leer máquinas e incidentes (modo degradado)
+    match /maquinas/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /incidentes/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+    // Todo lo demás, cerrado. La función /replica escribe con el SDK de administrador (no pasa por estas reglas).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

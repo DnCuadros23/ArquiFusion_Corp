@@ -1,0 +1,18 @@
+{
+  "tenant_id": "MINA_SUR",
+  "incidente_id": "3f2c9a1e-7b44-4c1a-9a51-2d0e8f6b1c11",
+  "maquina_id": "EXC-007",
+  "modelo": "EXC-320",
+  "zona": "TAJO_NORTE",
+  "lat": -15.84,
+  "lon": -70.02,
+  "creado_ts": "2026-11-14T15:05:00Z",
+  "estado": "DETECTADO",
+  "severidad": "MEDIA",
+  "variables_anomalas": [
+    {"variable": "temp_motor_c", "valor": 104.3, "media_habitual": 88.0, "z": 3.1, "minutos_persistente": 25},
+    {"variable": "vibracion_mm_s", "valor": 7.9, "media_habitual": 4.1, "z": 2.8, "minutos_persistente": 20},
+    {"variable": "combustible_l_h", "valor": 46.0, "media_habitual": 37.5, "z": 2.6, "minutos_persistente": 30}
+  ],
+  "grupo_causa_comun": null
+}

@@ -1,0 +1,8 @@
+{
+  "tenant_id": "MINA_SUR",
+  "fecha": "2026-11-15",
+  "preventivo": [{"maquina_id": "EXC-007", "horas_desde_mant": 520, "prioridad": "ALTA"}],
+  "combustible": [{"maquina_id": "CAM-012", "l_por_t": 1.9, "mediana_modelo": 1.4, "exceso_pct": 36}],
+  "utilizacion": [{"maquina_id": "CAR-003", "pct_operando": 18, "costo_dia_usd": 640}],
+  "repuestos": [{"repuesto_id": "FILTRO-AIRE-320", "stock": 2, "demanda_7d": 5, "stock_minimo": 3}]
+}
