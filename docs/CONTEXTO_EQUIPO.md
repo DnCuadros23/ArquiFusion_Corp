@@ -99,7 +99,7 @@ Formato de una lectura (**no se cambia sin avisar a los tres**):
 
 ```json
 {"tenant_id":"MINA_SUR","maquina_id":"EXC-007","modelo":"EXC-320","ts":"2026-11-14T15:00:00Z",
- "lat":-15.84,"lon":-70.02,"zona":"TAJO_NORTE","estado":"OPERANDO","horas_motor":4521.5,
+ "lat":-16.7175,"lon":-71.865,"zona":"TAJO_NORTE","estado":"OPERANDO","horas_motor":4521.5,
  "temp_motor_c":92.1,"vibracion_mm_s":4.2,"presion_hid_bar":310,"combustible_l_h":38.5,
  "carga_t":28.0,"velocidad_kmh":6.1,"rpm":1850}
 ```

@@ -2,25 +2,25 @@
   {
     "tenant_id": "MINA_SUR",
     "zona": "TAJO_NORTE",
-    "lat": -15.82,
-    "lon": -70.02
+    "lat": -16.698,
+    "lon": -71.865
   },
   {
     "tenant_id": "MINA_SUR",
     "zona": "TAJO_SUR",
-    "lat": -15.865,
-    "lon": -70.025
+    "lat": -16.742,
+    "lon": -71.87
   },
   {
     "tenant_id": "MINA_SUR",
     "zona": "CHANCADORA",
-    "lat": -15.84,
-    "lon": -69.985
+    "lat": -16.718,
+    "lon": -71.83
   },
   {
     "tenant_id": "MINA_SUR",
     "zona": "TALLER_CENTRAL",
-    "lat": -15.845,
-    "lon": -70.01
+    "lat": -16.723,
+    "lon": -71.855
   }
 ]
