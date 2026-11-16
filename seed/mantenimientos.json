@@ -1,0 +1,1028 @@
+[
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-001",
+    "fecha": "2026-08-05T17:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8472.8,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-001",
+    "fecha": "2026-09-16T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8942.8,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-001",
+    "fecha": "2026-10-22T21:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9357.8,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-002",
+    "fecha": "2026-07-28T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 5646.0,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-002",
+    "fecha": "2026-08-31T18:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6054.0,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-002",
+    "fecha": "2026-10-13T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6566.0,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-003",
+    "fecha": "2026-08-14T11:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 2353.0,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-003",
+    "fecha": "2026-09-18T00:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 2741.0,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-003",
+    "fecha": "2026-10-26T03:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 3161.0,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-004",
+    "fecha": "2026-09-12T19:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7782.7,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-004",
+    "fecha": "2026-10-18T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8167.7,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-005",
+    "fecha": "2026-08-13T05:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6887.9,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-005",
+    "fecha": "2026-09-21T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7326.9,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-005",
+    "fecha": "2026-11-04T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7840.9,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-006",
+    "fecha": "2026-08-14T04:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10573.9,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-006",
+    "fecha": "2026-09-20T05:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 11016.9,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-006",
+    "fecha": "2026-10-28T09:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 11447.9,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-007",
+    "fecha": "2026-08-19T18:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 3478.5,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-007",
+    "fecha": "2026-09-21T13:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 3870.5,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-007",
+    "fecha": "2026-11-01T14:30:00Z",
+    "tipo": "CORRECTIVO",
+    "horas_motor": 4353.5,
+    "componentes": [
+      "Termostato",
+      "Refrigerante de motor"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Atención por recalentamiento del motor; se reemplazó el termostato y se repuso refrigerante"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-008",
+    "fecha": "2026-07-27T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7297.9,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-008",
+    "fecha": "2026-09-04T17:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7740.9,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-008",
+    "fecha": "2026-10-17T13:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8240.9,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-009",
+    "fecha": "2026-08-05T12:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9490.1,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-009",
+    "fecha": "2026-09-06T10:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9871.1,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-009",
+    "fecha": "2026-10-12T05:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10262.1,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-010",
+    "fecha": "2026-08-09T04:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 5978.7,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-010",
+    "fecha": "2026-09-18T04:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6432.7,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-010",
+    "fecha": "2026-10-26T05:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6850.7,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-011",
+    "fecha": "2026-07-12T09:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6191.1,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-011",
+    "fecha": "2026-08-13T21:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6580.1,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-011",
+    "fecha": "2026-09-22T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7020.1,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-012",
+    "fecha": "2026-08-03T11:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7497.6,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-012",
+    "fecha": "2026-09-15T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8007.6,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "EXC-012",
+    "fecha": "2026-10-21T20:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8447.6,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-001",
+    "fecha": "2026-09-30T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7464.9,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-001",
+    "fecha": "2026-11-03T13:00:00Z",
+    "tipo": "CORRECTIVO",
+    "horas_motor": 7865.9,
+    "componentes": [
+      "Sello hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Reemplazo de sello hidráulico tras revisión en sitio"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-002",
+    "fecha": "2026-09-27T02:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9323.8,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-002",
+    "fecha": "2026-11-07T22:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9787.8,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-003",
+    "fecha": "2026-08-09T20:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6430.4,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-003",
+    "fecha": "2026-09-20T23:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6899.4,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-003",
+    "fecha": "2026-10-30T02:00:00Z",
+    "tipo": "CORRECTIVO",
+    "horas_motor": 7366.4,
+    "componentes": [
+      "Inyector"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Reemplazo de inyector tras revisión en sitio"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-004",
+    "fecha": "2026-09-02T06:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4154.0,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-004",
+    "fecha": "2026-10-16T19:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4651.0,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-005",
+    "fecha": "2026-09-17T10:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 5846.9,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-005",
+    "fecha": "2026-10-29T08:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6312.9,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-006",
+    "fecha": "2026-10-03T18:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9797.6,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-006",
+    "fecha": "2026-11-06T19:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10204.6,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-007",
+    "fecha": "2026-10-01T22:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4287.0,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-007",
+    "fecha": "2026-11-03T11:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4676.0,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-008",
+    "fecha": "2026-08-17T08:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 514.1,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-008",
+    "fecha": "2026-09-24T23:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 952.1,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-008",
+    "fecha": "2026-11-04T02:00:00Z",
+    "tipo": "CORRECTIVO",
+    "horas_motor": 1407.1,
+    "componentes": [
+      "Inyector"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Reemplazo de inyector tras revisión en sitio"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-009",
+    "fecha": "2026-07-01T21:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7982.3,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-009",
+    "fecha": "2026-08-15T09:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8489.3,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-009",
+    "fecha": "2026-09-18T11:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8872.3,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-010",
+    "fecha": "2026-08-12T23:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4701.9,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-010",
+    "fecha": "2026-09-15T20:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 5093.9,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-010",
+    "fecha": "2026-10-29T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 5582.9,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-011",
+    "fecha": "2026-08-15T17:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7685.4,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-011",
+    "fecha": "2026-09-28T06:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8170.4,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-011",
+    "fecha": "2026-11-01T07:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8553.4,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-012",
+    "fecha": "2026-07-24T02:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9437.8,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-012",
+    "fecha": "2026-09-01T10:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9896.8,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAM-012",
+    "fecha": "2026-10-15T01:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10381.8,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-001",
+    "fecha": "2026-09-10T09:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4420.2,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-001",
+    "fecha": "2026-10-16T11:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 4850.2,
+    "componentes": [
+      "Filtro de aceite",
+      "Filtro de aire"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-002",
+    "fecha": "2026-09-29T23:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 8728.7,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-002",
+    "fecha": "2026-11-07T00:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9158.7,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-003",
+    "fecha": "2026-08-12T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 1782.4,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-003",
+    "fecha": "2026-09-25T07:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 2267.4,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-003",
+    "fecha": "2026-10-31T17:00:00Z",
+    "tipo": "CORRECTIVO",
+    "horas_motor": 2665.4,
+    "componentes": [
+      "Manguera hidráulica"
+    ],
+    "tecnico_id": "TEC-004",
+    "detalle": "Reemplazo de manguera hidráulica tras revisión en sitio"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-004",
+    "fecha": "2026-08-07T22:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9765.9,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-007",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-004",
+    "fecha": "2026-09-12T16:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10155.9,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-004",
+    "fecha": "2026-10-25T13:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10632.9,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-005",
+    "fecha": "2026-07-03T19:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9047.7,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-005",
+    "fecha": "2026-08-18T04:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 9555.7,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-005",
+    "fecha": "2026-09-27T13:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 10037.7,
+    "componentes": [
+      "Filtro hidráulico",
+      "Aceite hidráulico"
+    ],
+    "tecnico_id": "TEC-003",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-006",
+    "fecha": "2026-07-30T18:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6389.8,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-008",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-006",
+    "fecha": "2026-09-06T02:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 6834.8,
+    "componentes": [
+      "Correa de accesorios"
+    ],
+    "tecnico_id": "TEC-002",
+    "detalle": "Mantenimiento programado por horas de motor"
+  },
+  {
+    "tenant_id": "MINA_SUR",
+    "maquina_id": "CAR-006",
+    "fecha": "2026-10-14T09:00:00Z",
+    "tipo": "PREVENTIVO",
+    "horas_motor": 7293.8,
+    "componentes": [
+      "Aceite de motor",
+      "Filtro de combustible"
+    ],
+    "tecnico_id": "TEC-001",
+    "detalle": "Mantenimiento programado por horas de motor"
+  }
+]

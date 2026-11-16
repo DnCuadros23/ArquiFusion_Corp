@@ -1,0 +1,42 @@
+# Simulador de la flota como Lambda. Lo despliega Denilson en la cuenta de demo.
+#
+#   cp ../seed/maquinas.json .          # la Lambda necesita la lista de máquinas en su paquete
+#   serverless deploy --stage prod --param="ingestaUrl=https://<id>.execute-api.us-east-1.amazonaws.com/prod" --param="apiKey=<api key>"
+#
+# La regla de EventBridge queda DESACTIVADA. Para encenderla o apagarla:
+#   aws events enable-rule  --name prod-arquifusion-simulador
+#   aws events disable-rule --name prod-arquifusion-simulador      # siempre al terminar de probar
+#
+# Nota: no ponemos `org:` aquí (igual que en services/_hola).
+service: arquifusion-simulador
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  memorySize: 256
+  timeout: 120
+  iam:
+    role: arn:aws:iam::${aws:accountId}:role/LabRole
+  environment:
+    INGESTA_URL: ${param:ingestaUrl}
+    API_KEY: ${param:apiKey}
+
+package:
+  patterns:
+    - "!**"
+    - simulador.py
+    - maquinas.json
+
+functions:
+  simulador:
+    handler: simulador.handler
+    events:
+      - schedule:
+          name: ${sls:stage}-arquifusion-simulador
+          description: Una ronda de telemetría normal por minuto (apagar al terminar)
+          rate: rate(1 minute)
+          enabled: false
+          input:
+            escenario: normal
