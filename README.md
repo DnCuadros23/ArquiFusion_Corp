@@ -1,8 +1,8 @@
-# ArquiFusion Fleet
+﻿# ArquiFusion Fleet
 
 Plataforma serverless multi-nube (**AWS + Google Cloud**) que convierte la telemetría de flotas de maquinaria pesada en decisiones: anticipa fallas, asigna técnicos, controla repuestos y combustible, y aprende del historial.
 
-- 🎥 Video (≤ 5 min): _pendiente_
+- 🎥 Video (≤ 5 min): https://youtu.be/gPjCpdl_1H4
 - 🗺️ Arquitectura: [`docs/arquitectura.png`](docs/arquitectura.png)
 - 📖 Contexto completo del equipo: [`docs/CONTEXTO_EQUIPO.md`](docs/CONTEXTO_EQUIPO.md)
 - ✅ Tareas: [Denilson](docs/tareas/DENILSON.md) · [Matías](docs/tareas/MATIAS.md) · [Enrique](docs/tareas/ENRIQUE.md) · Acuerdos: [`contracts/interfaces.md`](contracts/interfaces.md)
