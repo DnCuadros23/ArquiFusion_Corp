@@ -1,0 +1,4 @@
+firebase-admin>=6.5
+flask>=3.0
+functions-framework>=3.8
+gunicorn>=22.0

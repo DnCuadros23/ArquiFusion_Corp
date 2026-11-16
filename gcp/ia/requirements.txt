@@ -1,0 +1,5 @@
+google-genai>=1.20.0
+pydantic>=2.7
+flask>=3.0
+functions-framework>=3.8
+gunicorn>=22.0

@@ -1,0 +1,2 @@
+{"coleccion": "incidentes", "id": "3f2c9a1e-7b44-4c1a-9a51-2d0e8f6b1c11", "operacion": "UPSERT",
+ "datos": {"tenant_id": "MINA_SUR", "incidente_id": "3f2c9a1e-7b44-4c1a-9a51-2d0e8f6b1c11", "maquina_id": "EXC-007", "modelo": "EXC-320", "zona": "TAJO_NORTE", "lat": -15.84, "lon": -70.02, "creado_ts": "2026-11-14T15:05:00Z", "estado": "ASIGNADO", "severidad": "MEDIA", "variables_anomalas": [], "task_token": "NO-DEBE-LLEGAR"}}
